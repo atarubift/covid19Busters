@@ -1,0 +1,53 @@
+INFO = {
+  scene: :title,
+  min: 0,
+  sec: 0,
+  }
+
+class Game
+  def initialize
+    @font = Font.new(32)
+    @timeFlag = 0
+    @start = 0
+  end
+
+  def timer(start)
+    now = Time.now
+    limit = 3 * 60
+    diff = now - start
+    countdown = (limit - diff).to_i
+    INFO[:min] = countdown / 60
+    INFO[:sec] = countdown % 60
+    Window.draw_font(100, 300, "#{INFO[:min]}:#{INFO[:sec]}", @font)
+  end
+
+  def run
+    Window.loop do
+      case INFO[:scene]
+      when :title
+        Window.draw_font(100, 100, "title", @font)
+         if Input.key_push?(K_SPACE)
+           INFO[:scene] = :playing
+         end
+      when :playing
+        Window.draw_font(100, 100, "playing", @font)
+
+        if @timeFlag == 0
+          @start = Time.now
+          @timeFlag = 1
+        end
+
+        timer(@start)
+
+        if Input.key_push?(K_SPACE)
+          INFO[:scene] = :exit
+        end
+      when :exit
+        Window.draw_font(100, 100, "exit", @font)
+        if Input.key_push?(K_SPACE)
+          INFO[:scene] = :title
+        end
+      end
+    end
+  end
+end
