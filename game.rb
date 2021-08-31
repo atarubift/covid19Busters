@@ -6,7 +6,7 @@ INFO = {
 
 class Game
   def initialize
-    @title_image = Image.load("images/detective.png")
+    @title_image = Image.load("images/titlescreen.png")
     @font = Font.new(32)
     @timeFlag = 0
     @start = 0
@@ -29,7 +29,7 @@ class Game
       when :title
         Window.draw(0, 0, @title_image)
         Window.draw_font(290, 100, "Covid-19 Buster", @font)
-        Window.draw_font(275, 215, "Press Space to Start", @font)
+        Window.draw_font(270, 215, "Press Space to Start", @font)
          if Input.key_push?(K_SPACE)
            INFO[:scene] = :playing
          end
