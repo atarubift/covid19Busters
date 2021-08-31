@@ -13,7 +13,7 @@ class Game
 
   def timer(start)
     now = Time.now
-    limit = 3 * 60
+    limit = 2 * 60
     diff = now - start
     countdown = (limit - diff).to_i
     INFO[:min] = countdown / 60
@@ -39,9 +39,10 @@ class Game
 
         timer(@start)
 
-        Target.add(rand(700),600) if rand(30) == 0 
+        Target.add(INFO[:min],INFO[:sec]) if rand(40) == 0
+
         Target.collection.each do |target|
-          target.update
+          target.update(INFO[:min],INFO[:sec])
           target.draw
         end
 
