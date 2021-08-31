@@ -9,6 +9,7 @@ class Game
     @font = Font.new(32)
     @timeFlag = 0
     @start = 0
+    @cursor = Cursor.new
   end
 
   def timer(start)
@@ -31,7 +32,7 @@ class Game
          end
       when :playing
         Window.draw_font(100, 100, "playing", @font)
-
+        @cursor.move
         if @timeFlag == 0
           @start = Time.now
           @timeFlag = 1
