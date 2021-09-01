@@ -51,7 +51,7 @@ class Game
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])
           target.draw
-          Sprite.check(target,@cursor)
+          Sprite.check(@cursor,target)
         end
 
         if Input.key_push?(K_SPACE)
