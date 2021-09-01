@@ -28,7 +28,7 @@ class Game
     INFO[:sec] = countdown % 60
     ten = INFO[:sec] / 10
     one = INFO[:sec] % 10
-    Window.draw_font(100, 300, "#{INFO[:min]}:#{ten}#{one}", @font)
+    Window.draw_font(110, 15, "#{INFO[:min]}:#{ten}#{one}", @font)
   end
 
   def run
@@ -53,15 +53,11 @@ class Game
       
         timer(@start)
         
-        Target.add(INFO[:min],INFO[:sec]) if rand(40) == 0
-
+        Target.add(INFO[:min],INFO[:sec],"images/virus.png") if rand(40) == 0
+        Target.add(INFO[:min],INFO[:sec],"images/vaccine.png") if rand(40) == 0
         if (Time.now - INFO[:born]) >= 2
-          HighTarget.add(rand(700),600) 
+          HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png") 
           INFO[:born] = Time.now  
-        end
-        HighTarget.collection.each do |hightarget|
-          hightarget.update
-          hightarget.draw
         end
     
         Target.collection.each do |target|

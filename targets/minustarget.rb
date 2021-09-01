@@ -1,0 +1,3 @@
+class MinusTarget < Target
+
+end
