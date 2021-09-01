@@ -1,6 +1,7 @@
 require 'dxruby'
 
 require_relative 'game'
+require_relative 'target'
 require_relative 'cursor'
 
 Window.width = 800
