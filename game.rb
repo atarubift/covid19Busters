@@ -6,6 +6,7 @@ INFO = {
 
 class Game
   def initialize
+    @exit_image = Image.load("images/exit_image.png")
     @font = Font.new(32)
     @timeFlag = 0
     @start = 0
@@ -14,7 +15,7 @@ class Game
 
   def timer(start)
     now = Time.now
-    limit = 3 * 60
+    limit = 5
     diff = now - start
     countdown = (limit - diff).to_i
     INFO[:min] = countdown / 60
@@ -40,13 +41,16 @@ class Game
 
         timer(@start)
 
-        if Input.key_push?(K_SPACE)
+        if INFO[:min] == 0 and INFO[:sec] == 0
           INFO[:scene] = :exit
         end
       when :exit
-        Window.draw_font(100, 100, "exit", @font)
+        Window.draw(0, 0, @exit_image)
+        Window.draw_font(495, 395, "SCORE: 5000", @font)
         if Input.key_push?(K_SPACE)
           INFO[:scene] = :title
+        elsif Input.key_push?(K_ESCAPE)
+          exit
         end
       end
     end
