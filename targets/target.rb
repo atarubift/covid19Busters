@@ -5,7 +5,7 @@ class Target < Sprite
         @@collection
     end
 
-    def self.add(min,sec)
+    def self.add(min,sec,img,speed)
         #縦と横のレーンに的があるかチェック
         check_line_x = true
         check_line_y = true
@@ -27,30 +27,30 @@ class Target < Sprite
 
         #30秒毎に出てくる方向を変える
         if min >= 1 && sec >= 30 && check_line_x
-            @@collection << self.new(x,600,0,-10)
+            @@collection << self.new(x,600,0,-speed,img)
         elsif min >= 1  && sec >= 0 && check_line_x
-            @@collection << self.new(x,0,0,10)
+            @@collection << self.new(x,0,0,speed,img)
         elsif min >= 0 && min < 1 && sec >= 30 && check_line_y
-            @@collection << self.new(800,y,-10,0)
+            @@collection << self.new(800,y,-speed,0,img)
         elsif min >= 0 && min < 1  && sec >= 0 && check_line_y
-            @@collection << self.new(0,y,10,0)
+            @@collection << self.new(0,y,speed,0,img)
         end
     end
 
     #初期のx座標、y座標、移動する速さ
-    def initialize(x, y, dx,dy)
+    def initialize(x, y, dx, dy ,img)
         self.x = x
         self.y = y
-        self.image = Image.load("images/virus.png")
+        self.image = Image.load(img)
         @time = 0
         @dx = dx
         @dy = dy
 
         #的が止まる座標
         @stop_place_top = rand(500)
-        @stop_place_bottom = @stop_place_top + 10
+        @stop_place_bottom = @stop_place_top + 30
         @stop_place_left = rand(700)
-        @stop_place_right = @stop_place_left + 10
+        @stop_place_right = @stop_place_left + 30
     end
 
     def update(min ,sec)
@@ -66,6 +66,7 @@ class Target < Sprite
     def hit
         if Input.mouse_push?(M_LBUTTON)
             self.vanish
+            $score += 50
         end
     end
 
