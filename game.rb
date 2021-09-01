@@ -7,6 +7,10 @@ INFO = {
 
 class Game
   def initialize
+    @three = Image.load("images/3.png")
+    @two = Image.load("images/2.png")
+    @one = Image.load("images/1.png")
+    @go = Image.load("images/START.png")
     @transition_time = 0
     @middle_image = Image.load("images/middle_image.png")
     @exit_image = Image.load("images/exit_image.png")
@@ -46,11 +50,20 @@ class Game
          end
 
         when :dirty_hand
+          timing = (Time.now-@transition_time).to_i
           Window.draw(0, 0, @middle_image)
-          if   (Time.now-@transition_time) >=2
+          if   timing ==2
+            Window.draw(0, 0, @three)
+          elsif timing ==3
+            Window.draw(0, 0, @two)
+          elsif timing ==4
+            Window.draw(0, 0, @one)
+          elsif timing ==5
+            Window.draw(0, 0, @go)
+          elsif timing ==6
           INFO[:scene] = :playing
           end
-          
+
         when :playing
         Window.draw(0, 0, @playing_image)
         Window.draw_font(10, 10, "playing", @font)
