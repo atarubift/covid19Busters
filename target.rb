@@ -63,4 +63,10 @@ class Target < Sprite
         self.class.collection.delete(self) if @time > 200
     end
 
+    def shot
+        if Input.mouse_push?(M_LBUTTON)
+            self.vanish
+        end
+    end
+
 end
