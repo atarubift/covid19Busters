@@ -7,4 +7,11 @@ class HighTarget < Target
         self.class.collection.delete(self) if @time > 50
     end
 
+    def hit
+      if Input.mouse_push?(M_LBUTTON)
+          self.vanish
+          $score += 100
+      end
+  end
+
 end

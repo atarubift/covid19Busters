@@ -7,6 +7,7 @@ INFO = {
 
 class Game
   def initialize
+    $score = 0
     @exit_image = Image.load("images/exit_image.png")
     @title_image = Image.load("images/titlescreen.png")
     @playing_image = Image.load("images/hand_background.png")
@@ -14,9 +15,6 @@ class Game
     @timeFlag = 0
     @start = 0
     @cursor = Cursor.new
-  end
-
-  def reset
   end
 
   def timer(start)
@@ -44,7 +42,7 @@ class Game
       when :playing
 
         Window.draw(0, 0, @playing_image)
-        Window.draw_font(10, 10, "playing", @font)
+        Window.draw_font(200, 10, "SCORE:#{$score}", @font)
         @cursor.move
         if @timeFlag == 0
           @start = Time.now  
@@ -55,6 +53,7 @@ class Game
         
         Target.add(INFO[:min],INFO[:sec],"images/virus.png",10) if rand(40) == 0
         MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10) if rand(40) == 0
+
         if (Time.now - INFO[:born]) >= 2
           HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15) 
           INFO[:born] = Time.now  
