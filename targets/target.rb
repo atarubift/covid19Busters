@@ -5,7 +5,7 @@ class Target < Sprite
         @@collection
     end
 
-    def self.add(min,sec,img)
+    def self.add(min,sec,img,speed)
         #縦と横のレーンに的があるかチェック
         check_line_x = true
         check_line_y = true
@@ -27,13 +27,13 @@ class Target < Sprite
 
         #30秒毎に出てくる方向を変える
         if min >= 1 && sec >= 30 && check_line_x
-            @@collection << self.new(x,600,0,-10,img)
+            @@collection << self.new(x,600,0,-speed,img)
         elsif min >= 1  && sec >= 0 && check_line_x
-            @@collection << self.new(x,0,0,10,img)
+            @@collection << self.new(x,0,0,speed,img)
         elsif min >= 0 && min < 1 && sec >= 30 && check_line_y
-            @@collection << self.new(800,y,-10,0,img)
+            @@collection << self.new(800,y,-speed,0,img)
         elsif min >= 0 && min < 1  && sec >= 0 && check_line_y
-            @@collection << self.new(0,y,10,0,img)
+            @@collection << self.new(0,y,speed,0,img)
         end
     end
 
