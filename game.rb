@@ -6,6 +6,7 @@ INFO = {
 
 class Game
   def initialize
+    @exit_image = Image.load("images/exit_image.png")
     @title_image = Image.load("images/titlescreen.png")
     @playing_image = Image.load("images/hand_background.png")
     @font = Font.new(32)
@@ -50,22 +51,25 @@ class Game
         end
 
         timer(@start)
-
+        
         Target.add(INFO[:min],INFO[:sec]) if rand(40) == 0
 
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])
           target.draw
         end
-
-        if Input.key_push?(K_SPACE)
+        
+        if INFO[:min] == 0 and INFO[:sec] == 0
           INFO[:scene] = :exit
         end
       when :exit
-        Window.draw_font(100, 100, "exit", @font)
+        Window.draw(0, 0, @exit_image)
+        Window.draw_font(495, 395, "SCORE: 5000", @font)
         if Input.key_push?(K_SPACE)
           INFO[:scene] = :title
           initialize
+        elsif Input.key_push?(K_ESCAPE)
+          exit
         end
       end
     end
