@@ -19,7 +19,7 @@ class Game
 
   def timer(start)
     now = Time.now
-    limit = 3 * 60
+    limit = 2 * 60
     diff = now - start
     countdown = (limit - diff).to_i
     INFO[:min] = countdown / 60
@@ -40,8 +40,9 @@ class Game
            INFO[:scene] = :playing
          end
       when :playing
+
         Window.draw(0, 0, @playing_image)
-        Window.draw_font(100, 100, "playing", @font)
+        Window.draw_font(10, 10, "playing", @font)
         @cursor.move
         if @timeFlag == 0
           @start = Time.now
@@ -49,6 +50,13 @@ class Game
         end
 
         timer(@start)
+
+        Target.add(INFO[:min],INFO[:sec]) if rand(40) == 0
+
+        Target.collection.each do |target|
+          target.update(INFO[:min],INFO[:sec])
+          target.draw
+        end
 
         if Input.key_push?(K_SPACE)
           INFO[:scene] = :exit
