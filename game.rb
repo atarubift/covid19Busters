@@ -53,10 +53,10 @@ class Game
       
         timer(@start)
         
-        Target.add(INFO[:min],INFO[:sec],"images/virus.png") if rand(40) == 0
-        Target.add(INFO[:min],INFO[:sec],"images/vaccine.png") if rand(40) == 0
+        Target.add(INFO[:min],INFO[:sec],"images/virus.png",10) if rand(40) == 0
+        MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10) if rand(40) == 0
         if (Time.now - INFO[:born]) >= 2
-          HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png") 
+          HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15) 
           INFO[:born] = Time.now  
         end
     
