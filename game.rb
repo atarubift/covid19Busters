@@ -7,6 +7,7 @@ INFO = {
 class Game
   def initialize
     @title_image = Image.load("images/titlescreen.png")
+    @playing_image = Image.load("images/hand_background.png")
     @font = Font.new(32)
     @timeFlag = 0
     @start = 0
@@ -34,6 +35,7 @@ class Game
            INFO[:scene] = :playing
          end
       when :playing
+        Window.draw(0, 0, @playing_image)
         Window.draw_font(100, 100, "playing", @font)
         @cursor.move
         if @timeFlag == 0
