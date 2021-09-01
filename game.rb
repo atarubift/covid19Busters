@@ -7,6 +7,8 @@ INFO = {
 
 class Game
   def initialize
+    @transition_time = 0
+    @middle_image = Image.load("images/middle_image.png")
     @exit_image = Image.load("images/exit_image.png")
     @title_image = Image.load("images/titlescreen.png")
     @playing_image = Image.load("images/hand_background.png")
@@ -39,10 +41,17 @@ class Game
         Window.draw_font(290, 100, "Covid-19 Buster", @font)
         Window.draw_font(275, 215, "Press Space to Start", @font)
          if Input.key_push?(K_SPACE)
-           INFO[:scene] = :playing
+          @transition_time = Time.now
+           INFO[:scene] = :dirty_hand
          end
-      when :playing
 
+        when :dirty_hand
+          Window.draw(0, 0, @middle_image)
+          if   (Time.now-@transition_time) >=2
+          INFO[:scene] = :playing
+          end
+          
+        when :playing
         Window.draw(0, 0, @playing_image)
         Window.draw_font(10, 10, "playing", @font)
         @cursor.move
