@@ -6,16 +6,15 @@ INFO = {
 
 class Game
   def initialize
-    reset
-  end
-
-  def reset
     @title_image = Image.load("images/titlescreen.png")
     @playing_image = Image.load("images/hand_background.png")
     @font = Font.new(32)
     @timeFlag = 0
     @start = 0
     @cursor = Cursor.new
+  end
+
+  def reset
   end
 
   def timer(start)
@@ -58,7 +57,7 @@ class Game
         Window.draw_font(100, 100, "exit", @font)
         if Input.key_push?(K_SPACE)
           INFO[:scene] = :title
-          reset
+          initialize
         end
       end
     end
