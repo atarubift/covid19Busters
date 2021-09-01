@@ -92,7 +92,7 @@ class Game
         end
       when :exit
         Window.draw(0, 0, @exit_image)
-        Window.draw_font(495, 395, "SCORE: 5000", @font)
+        Window.draw_font(495, 395, "SCORE: #{$score}", @font)
         if Input.key_push?(K_SPACE)
           INFO[:scene] = :title
           initialize
