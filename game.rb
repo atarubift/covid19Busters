@@ -15,6 +15,9 @@ class Game
     @cursor = Cursor.new
   end
 
+  def reset
+  end
+
   def timer(start)
     now = Time.now
     limit = 2 * 60
@@ -22,7 +25,9 @@ class Game
     countdown = (limit - diff).to_i
     INFO[:min] = countdown / 60
     INFO[:sec] = countdown % 60
-    Window.draw_font(150, 10, "#{INFO[:min]}:#{INFO[:sec]}", @font)
+    ten = INFO[:sec] / 10
+    one = INFO[:sec] % 10
+    Window.draw_font(100, 300, "#{INFO[:min]}:#{ten}#{one}", @font)
   end
 
   def run
@@ -62,6 +67,7 @@ class Game
         Window.draw_font(495, 395, "SCORE: 5000", @font)
         if Input.key_push?(K_SPACE)
           INFO[:scene] = :title
+          initialize
         elsif Input.key_push?(K_ESCAPE)
           exit
         end
