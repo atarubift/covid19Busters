@@ -28,7 +28,7 @@ class Game
     INFO[:sec] = countdown % 60
     ten = INFO[:sec] / 10
     one = INFO[:sec] % 10
-    Window.draw_font(100, 300, "#{INFO[:min]}:#{ten}#{one}", @font)
+    Window.draw_font(110, 15, "#{INFO[:min]}:#{ten}#{one}", @font)
   end
 
   def run

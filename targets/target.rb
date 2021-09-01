@@ -51,9 +51,6 @@ class Target < Sprite
         @stop_place_bottom = @stop_place_top + 30
         @stop_place_left = rand(700)
         @stop_place_right = @stop_place_left + 30
-        p img
-        p @stop_place_top = rand(500)
-        p @stop_place_bottom = @stop_place_top + 10
     end
 
     def update(min ,sec)
