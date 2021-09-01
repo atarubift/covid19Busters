@@ -6,9 +6,12 @@ INFO = {
 
 class Game
   def initialize
+    @title_image = Image.load("images/titlescreen.png")
+    @playing_image = Image.load("images/hand_background.png")
     @font = Font.new(32)
     @timeFlag = 0
     @start = 0
+    @cursor = Cursor.new
   end
 
   def timer(start)
@@ -25,13 +28,17 @@ class Game
     Window.loop do
       case INFO[:scene]
       when :title
-        Window.draw_font(100, 100, "title", @font)
+        Window.draw(0, 0, @title_image)
+        Window.draw_font(290, 100, "Covid-19 Buster", @font)
+        Window.draw_font(270, 215, "Press Space to Start", @font)
          if Input.key_push?(K_SPACE)
            INFO[:scene] = :playing
          end
       when :playing
-        Window.draw_font(10, 10, "playing", @font)
 
+        Window.draw(0, 0, @playing_image)
+        Window.draw_font(10, 10, "playing", @font)
+        @cursor.move
         if @timeFlag == 0
           @start = Time.now
           @timeFlag = 1
