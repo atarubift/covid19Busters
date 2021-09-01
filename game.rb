@@ -67,6 +67,7 @@ class Game
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])
           target.draw
+          Sprite.check(@cursor,target)
         end
         
         if INFO[:min] == 0 and INFO[:sec] == 0
