@@ -77,7 +77,8 @@ class Game
         MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10) if rand(40) == 0
 
         if (Time.now - INFO[:born]) >= 2
-          HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15) 
+          HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15)
+          DoubleTarget.add(INFO[:min],INFO[:sec],"images/2x_new-modified.png",20)
           INFO[:born] = Time.now  
         end
     
