@@ -21,6 +21,8 @@ class Game
     @timeFlag = 0
     @start = 0
     @cursor = Cursor.new
+    $double_flag = 0
+    $double_time = 0
   end
 
   def timer(start)
@@ -77,7 +79,6 @@ class Game
 #           HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15, 100) 
 #           INFO[:born] = Time.now  
 #         end
-
     
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])
