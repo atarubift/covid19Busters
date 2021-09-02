@@ -44,7 +44,7 @@ class Game
         Window.draw_font(275, 215, "Press Space to Start", @font)
          if Input.key_push?(K_SPACE)
           @transition_time = Time.now
-           INFO[:scene] = :playing
+           INFO[:scene] = :dirty_hand
          end
 
         when :dirty_hand

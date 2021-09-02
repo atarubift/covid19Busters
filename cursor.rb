@@ -1,6 +1,6 @@
 class Cursor < Sprite
     def initialize
-        self.image = Image.load("images/player.png")
+        self.image = Image.load("images/shooter.png")
         f = 4000
         @sound = SoundEffect.new(20, WAVE_TRI) do
           f = f - 120
