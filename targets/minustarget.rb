@@ -20,8 +20,9 @@ class CircleMinusTarget < CircleTarget
 
   def hit
     if Input.mouse_push?(M_LBUTTON)
+        @hitime = Time.now
         self.vanish
-        $score += -50
+        $score += @score
     end
   end
 end

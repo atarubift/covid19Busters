@@ -7,6 +7,12 @@ INFO = {
 
 class Game
   def initialize
+    @three = Image.load("images/3.png")
+    @two = Image.load("images/2.png")
+    @one = Image.load("images/1.png")
+    @go = Image.load("images/START.png")
+    @transition_time = 0
+    @middle_image = Image.load("images/middle_image.png")
     $score = 0
     @exit_image = Image.load("images/exit_image.png")
     @title_image = Image.load("images/titlescreen.png")
@@ -37,10 +43,26 @@ class Game
         Window.draw_font(290, 100, "Covid-19 Buster", @font)
         Window.draw_font(275, 215, "Press Space to Start", @font)
          if Input.key_push?(K_SPACE)
-           INFO[:scene] = :playing
+          @transition_time = Time.now
+           INFO[:scene] = :dirty_hand
          end
-      when :playing
 
+        when :dirty_hand
+          timing = (Time.now-@transition_time).to_i
+          Window.draw(0, 0, @middle_image)
+          if   timing ==2
+            Window.draw(0, 0, @three)
+          elsif timing ==3
+            Window.draw(0, 0, @two)
+          elsif timing ==4
+            Window.draw(0, 0, @one)
+          elsif timing ==5
+            Window.draw(0, 0, @go)
+          elsif timing ==6
+          INFO[:scene] = :playing
+          end
+
+        when :playing
         Window.draw(0, 0, @playing_image)
         if @timeFlag == 0
           @start = Time.now  
@@ -48,6 +70,14 @@ class Game
         end
         
         Target.add(INFO[:min],INFO[:sec]) if rand(50) == 0
+#         Target.add(INFO[:min],INFO[:sec],"images/virus.png",10, 50) if rand(40) == 0
+#         MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10, -50) if rand(40) == 0
+
+#         if (Time.now - INFO[:born]) >= 2
+#           HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15, 100) 
+#           INFO[:born] = Time.now  
+#         end
+
     
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])
@@ -62,7 +92,7 @@ class Game
         Window.draw_font(100, 15, "SCORE:#{$score}", @font,color:[0,0,0])
       when :exit
         Window.draw(0, 0, @exit_image)
-        Window.draw_font(495, 395, "SCORE: 5000", @font)
+        Window.draw_font(495, 395, "SCORE: #{$score}", @font)
         if Input.key_push?(K_SPACE)
           INFO[:scene] = :title
           initialize

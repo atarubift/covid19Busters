@@ -5,7 +5,8 @@ class Target < Sprite
         @@collection
     end
 
-    def self.add(min,sec)
+
+    def self.add(min,sec,score)
         #縦と横のレーンに的があるかチェック
         check_line_x = true
         check_line_y = true
@@ -32,21 +33,21 @@ class Target < Sprite
         if min >= 1 && sec >= 30
             if check_line_x
                 if per > 5
-                    @@collection << NormalTarget.new(x, 600, 0, -10)
+                    @@collection << NormalTarget.new(x, 600, 0, -10, socre)
                 elsif per > 1
-                    @@collection << MinusTarget.new(x, 0, 0, 10)
+                    @@collection << MinusTarget.new(x, 0, 0, 10, socre)
                 else
-                    @@collection << HighTarget.new(x, 0, 0, 15)
+                    @@collection << HighTarget.new(x, 0, 0, 15, socre)
                 end
             end
         elsif min >= 1  && sec >= 0
             if check_line_y
                 if per > 5
-                    @@collection << NormalTarget.new(800, y, -10, 0)
+                    @@collection << NormalTarget.new(800, y, -10, 0, socre)
                 elsif per > 1
-                    @@collection << MinusTarget.new(0, y, 10, 0)
+                    @@collection << MinusTarget.new(0, y, 10, 0, socre)
                 else
-                    @@collection << HighTarget.new(0, y, 15, 0) 
+                    @@collection << HighTarget.new(0, y, 15, 0, socre) 
                 end
             end
         elsif min >= 0 && min < 1
@@ -61,10 +62,12 @@ class Target < Sprite
         end
     end
 
-    #初期のx座標、y座標、移動する速さ、画像
-    def initialize(x, y, dx, dy)
+    #初期のx座標、y座標、移動する速さ
+    def initialize(x, y, dx, dy, score)
         self.x = x
         self.y = y
+        @score = score
+        @font = Font.new(32)
         @time = 0
         @dx = dx
         @dy = dy
@@ -85,6 +88,19 @@ class Target < Sprite
         #時間経過で消える
         @time += 1
         self.class.collection.delete(self) if @time > 200
+
+        if self.vanished?
+            if Time.now - @hitime < 0.5
+              Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+            end
+        end
     end
 
+    def hit
+        if Input.mouse_push?(M_LBUTTON)
+            @hitime = Time.now
+            self.vanish
+            $score += @score
+        end
+    end
 end
