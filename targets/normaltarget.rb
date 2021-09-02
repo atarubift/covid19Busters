@@ -7,8 +7,17 @@ class NormalTarget < Target
     def hit
         if Input.mouse_push?(M_LBUTTON)
             @hitime = Time.now
+            if $double_flag == 1
+                if Time.now - $double_time <= 5
+                    $score += @score*2
+                else
+                    $double_flag = 0
+                    $score += @score
+                end
+            else
+                $score += @score
+            end
             self.vanish
-            $score += @score
         end
     end
 end
@@ -22,8 +31,18 @@ class CircleNormalTarget < CircleTarget
     def hit
         if Input.mouse_push?(M_LBUTTON)
             @hitime = Time.now
+            if $double_flag == 1
+                if Time.now - $double_time <= 5
+                    $score += @score*2
+                else
+                    $double_flag = 0
+                    $score += @score
+                end
+            else
+                $score += @score
+            end
             self.vanish
-            $score += @score
+
         end
     end
 end
