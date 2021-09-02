@@ -1,5 +1,5 @@
 class HighTarget < Target
-    def initialize(x, y, dx, dy)
+    def initialize(x, y, dx, dy, score)
         super
         self.image = Image.load("images/extra_point.png")
     end
@@ -32,15 +32,16 @@ class HighTarget < Target
 end
 
 class CircleHighTarget < CircleTarget
-    def initialize(x, y)
+    def initialize(x, y, score)
         super
         self.image = Image.load("images/extra_point.png")
     end
 
     def hit
       if Input.mouse_push?(M_LBUTTON)
+          @hitime = Time.now
           self.vanish
-          $score += 100
+          $score += @score
       end
   end
 end
