@@ -16,10 +16,6 @@ class Cursor < Sprite
         
         if Input.mouse_down?(M_LBUTTON) then   
             @sound.play
-            @sound.save("images/marupakuri.wav")
-        end
-        if Input.mouse_down?(M_RBUTTON) then
-            Window.draw_font(self.x, self.y, "right", Font.new(32))
         end
     end
 end
