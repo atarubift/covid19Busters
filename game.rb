@@ -47,7 +47,7 @@ class Game
           @timeFlag = 1
         end
         
-        Target.add(INFO[:min],INFO[:sec]) if rand(10) == 0
+        Target.add(INFO[:min],INFO[:sec]) if rand(50) == 0
     
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])

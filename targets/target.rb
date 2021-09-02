@@ -25,38 +25,46 @@ class Target < Sprite
           end
         end
 
-        #30秒毎に出てくる方向を変える
+        #時間よって出方を変える
+        #乱数によって出る的を変える。ノーマル:マイナス:高得点=4:3:2
+        #一分を切ったら円運動に変える
         per = rand(10)
         if min >= 1 && sec >= 30
             if check_line_x
                 if per > 5
-                    @@collection << NormalTarget.new(x,600,0,-10,"images/virus.png")
+                    @@collection << NormalTarget.new(x, 600, 0, -10)
                 elsif per > 1
-                    @@collection << MinusTarget.new(x,0,0,10,"images/vaccine.png")
+                    @@collection << MinusTarget.new(x, 0, 0, 10)
                 else
-                    @@collection << HighTarget.new(x,0,0,15,"images/extra_point.png")
+                    @@collection << HighTarget.new(x, 0, 0, 15)
                 end
             end
         elsif min >= 1  && sec >= 0
             if check_line_y
                 if per > 5
-                    @@collection << NormalTarget.new(800,y,-10,0,"images/virus.png")
+                    @@collection << NormalTarget.new(800, y, -10, 0)
                 elsif per > 1
-                    @@collection << MinusTarget.new(0,y,10,0,"images/vaccine.png")
+                    @@collection << MinusTarget.new(0, y, 10, 0)
                 else
-                    @@collection << HighTarget.new(0,y,15,0,"images/extra_point.png") 
+                    @@collection << HighTarget.new(0, y, 15, 0) 
                 end
             end
-        elsif min >= 0 && min < 1 && sec >= 30 && check_line_y
-        elsif min >= 0 && min < 1  && sec >= 0 && check_line_y
+        elsif min >= 0 && min < 1
+            rand(2) == 0 ? x = 0 : x = 800
+            if per > 5
+                @@collection << CircleNormalTarget.new(x, 0)
+            elsif per > 1
+                @@collection << CircleMinusTarget.new(x, 0)
+            else
+                @@collection << CircleHighTarget.new(x, 0)
+            end
         end
     end
 
-    #初期のx座標、y座標、移動する速さ
-    def initialize(x, y, dx, dy ,img)
+    #初期のx座標、y座標、移動する速さ、画像
+    def initialize(x, y, dx, dy)
         self.x = x
         self.y = y
-        self.image = Image.load(img)
         @time = 0
         @dx = dx
         @dy = dy
@@ -73,7 +81,7 @@ class Target < Sprite
         self.x += @dx if @stop_place_left > self.x || @stop_place_right < self.x
         self.y += @dy if @stop_place_top > self.y || @stop_place_bottom < self.y 
         self.draw
-        
+
         #時間経過で消える
         @time += 1
         self.class.collection.delete(self) if @time > 200
