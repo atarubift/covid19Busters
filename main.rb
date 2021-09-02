@@ -3,8 +3,10 @@ require 'dxruby'
 require_relative 'game'
 require_relative 'cursor'
 require_relative 'targets/target'
+require_relative 'targets/normaltarget'
 require_relative 'targets/hightarget'
 require_relative 'targets/minustarget'
+require_relative 'targets/circletarget'
 
 Window.width = 800
 Window.height = 600
