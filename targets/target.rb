@@ -30,38 +30,43 @@ class Target < Sprite
         end
 
         #時間よって出方を変える
-        #乱数によって出る的を変える。ノーマル:マイナス:高得点=4:3:2
+        #乱数によって出る的を変える。ノーマル:マイナス:高得点:2倍=40:35:20:5
         #一分を切ったら円運動に変える
-        per = rand(10)
+        per = rand(100)
         if min >= 1 && sec >= 30
             if check_line_x
-                if per > 5
+                if per > 60
                     @@collection << NormalTarget.new(x, 600, 0, -10, normal_score)
-                elsif per > 1
+                elsif per > 25
                     @@collection << MinusTarget.new(x, 0, 0, 10, minus_score)
-                else
+                elsif per > 5
                     @@collection << HighTarget.new(x, 0, 0, 15, high_score)
+                else
                     @@collection << DoubleTarget.new(x, 0, 0, 15, high_score)
                 end
             end
         elsif min >= 1  && sec >= 0
             if check_line_y
-                if per > 5
+                if per > 60
                     @@collection << NormalTarget.new(800, y, -10, 0, normal_score)
-                elsif per > 1
+                elsif per > 25
                     @@collection << MinusTarget.new(0, y, 10, 0, minus_score)
+                elsif per > 5
+                    @@collection << HighTarget.new(0, y, 15, 0, high_score)
                 else
-                    @@collection << HighTarget.new(0, y, 15, 0, high_score) 
+                    @@collection << DoubleTarget.new(0, y, 15, 0, high_score)
                 end
             end
-        elsif min >= 0 && min < 1
+        elsif min >= 0 && min < 1 && @@collection.size < 20
             rand(2) == 0 ? x = 0 : x = 800
-            if per > 5
+            if per > 60
                 @@collection << CircleNormalTarget.new(x, 0, normal_score)
-            elsif per > 1
+            elsif per > 25
                 @@collection << CircleMinusTarget.new(x, 0, minus_score)
-            else
+            elsif per > 5
                 @@collection << CircleHighTarget.new(x, 0, high_score)
+            else
+                @@collection << CircleDoubleTarget.new(x, 0, high_score)
             end
         end
     end
@@ -96,7 +101,7 @@ class Target < Sprite
 
         if self.vanished?
             if Time.now - @hitime < 0.5
-              Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+                Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
             end
         end
     end
@@ -105,7 +110,7 @@ class Target < Sprite
         if Input.mouse_push?(M_LBUTTON)
             @hitime = Time.now
             self.vanish
-            $score += @score
+            $score += @score * $double_point
         end
     end
 end

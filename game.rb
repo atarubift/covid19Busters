@@ -14,6 +14,7 @@ class Game
     @transition_time = 0
     @middle_image = Image.load("images/middle_image.png")
     $score = 0
+    $double_point = 1
     @exit_image = Image.load("images/exit_image.png")
     @title_image = Image.load("images/titlescreen.png")
     @playing_image = Image.load("images/hand_background.png")
@@ -70,20 +71,6 @@ class Game
         end
         
         Target.add(INFO[:min],INFO[:sec]) if rand(50) == 0
-#         Target.add(INFO[:min],INFO[:sec],"images/virus.png",10, 50) if rand(40) == 0
-#         MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10, -50) if rand(40) == 0
-
-#         if (Time.now - INFO[:born]) >= 2
-#           HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15, 100) 
-#           INFO[:born] = Time.now  
-#         end
-
-
-        # if (Time.now - INFO[:born]) >= 2
-        #   HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15)
-        #   DoubleTarget.add(INFO[:min],INFO[:sec],"images/2x_new-modified.png",20)
-        #   INFO[:born] = Time.now  
-        # end
     
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])

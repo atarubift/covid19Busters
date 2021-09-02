@@ -8,6 +8,7 @@ class CircleTarget < Target
         @angle = 0 #角度
         @score = score
         @font = Font.new(32)
+        @hitime = 0
 
         x == 0 ? @dx = 3 : @dx = -3
 
@@ -25,9 +26,8 @@ class CircleTarget < Target
         self.y = self.y - Math.cos(rad) * @width
         self.draw
         
-        #時間経過で消える
-        @time += 1
-        self.class.collection.delete(self) if @time > 200
+        #画面外に出たら消える
+        self.class.collection.delete(self) if y > 600
 
         if self.vanished?
             if Time.now - @hitime < 0.5
