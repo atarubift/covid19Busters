@@ -26,7 +26,7 @@ class Game
     INFO[:sec] = countdown % 60
     ten = INFO[:sec] / 10
     one = INFO[:sec] % 10
-    Window.draw_font(110, 15, "#{INFO[:min]}:#{ten}#{one}", @font)
+    Window.draw_font(10, 15, "#{INFO[:min]}:#{ten}#{one}", @font, color:[0,0,0])
   end
 
   def run
@@ -42,14 +42,10 @@ class Game
       when :playing
 
         Window.draw(0, 0, @playing_image)
-        Window.draw_font(200, 10, "SCORE:#{$score}", @font)
-        @cursor.move
         if @timeFlag == 0
           @start = Time.now  
           @timeFlag = 1
         end
-      
-        timer(@start)
         
         Target.add(INFO[:min],INFO[:sec],"images/virus.png",10) if rand(40) == 0
         MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10) if rand(40) == 0
@@ -65,9 +61,12 @@ class Game
           Sprite.check(@cursor,target)
         end
         
+        @cursor.move
+        timer(@start)
         if INFO[:min] == 0 and INFO[:sec] == 0
           INFO[:scene] = :exit
         end
+        Window.draw_font(100, 15, "SCORE:#{$score}", @font,color:[0,0,0])
       when :exit
         Window.draw(0, 0, @exit_image)
         Window.draw_font(495, 395, "SCORE: 5000", @font)
