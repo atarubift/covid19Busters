@@ -1,19 +1,20 @@
 class MinusTarget < Target
-  def initialize(x, y, dx, dy)
+  def initialize(x, y, dx, dy, score)
     super
     self.image = Image.load("images/vaccine.png")
   end
 
   def hit
     if Input.mouse_push?(M_LBUTTON)
-        self.vanish
-        $score += -50
+          @hitime = Time.now
+          self.vanish
+        $score += @score
     end
   end
 end
 
 class CircleMinusTarget < CircleTarget
-  def initialize(x, y)
+  def initialize(x, y, score)
     super
     self.image = Image.load("images/vaccine.png")
   end

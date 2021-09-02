@@ -1,11 +1,13 @@
 class CircleTarget < Target
     #初期のx座標、y座標
-    def initialize(x, y)
+    def initialize(x, y, score)
         self.x = x
         self.y = y
         @time = 0
         @width = 7 #半径
         @angle = 0 #角度
+        @score = score
+        @font = Font.new(32)
 
         x == 0 ? @dx = 3 : @dx = -3
 
@@ -26,5 +28,11 @@ class CircleTarget < Target
         #時間経過で消える
         @time += 1
         self.class.collection.delete(self) if @time > 200
+
+        if self.vanished?
+            if Time.now - @hitime < 0.5
+              Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+            end
+        end
     end
 end

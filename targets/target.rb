@@ -6,11 +6,14 @@ class Target < Sprite
     end
 
 
-    def self.add(min,sec,score)
+    def self.add(min,sec)
         #縦と横のレーンに的があるかチェック
         check_line_x = true
         check_line_y = true
         x = rand(7) * 100
+        normal_score = 50
+        high_score = 200
+        minus_score = -50
         @@collection.each do |target|
           if target.x == x
             check_line_x = false
@@ -33,31 +36,31 @@ class Target < Sprite
         if min >= 1 && sec >= 30
             if check_line_x
                 if per > 5
-                    @@collection << NormalTarget.new(x, 600, 0, -10, socre)
+                    @@collection << NormalTarget.new(x, 600, 0, -10, normal_score)
                 elsif per > 1
-                    @@collection << MinusTarget.new(x, 0, 0, 10, socre)
+                    @@collection << MinusTarget.new(x, 0, 0, 10, minus_score)
                 else
-                    @@collection << HighTarget.new(x, 0, 0, 15, socre)
+                    @@collection << HighTarget.new(x, 0, 0, 15, high_score)
                 end
             end
         elsif min >= 1  && sec >= 0
             if check_line_y
                 if per > 5
-                    @@collection << NormalTarget.new(800, y, -10, 0, socre)
+                    @@collection << NormalTarget.new(800, y, -10, 0, normal_score)
                 elsif per > 1
-                    @@collection << MinusTarget.new(0, y, 10, 0, socre)
+                    @@collection << MinusTarget.new(0, y, 10, 0, minus_score)
                 else
-                    @@collection << HighTarget.new(0, y, 15, 0, socre) 
+                    @@collection << HighTarget.new(0, y, 15, 0, high_score) 
                 end
             end
         elsif min >= 0 && min < 1
             rand(2) == 0 ? x = 0 : x = 800
             if per > 5
-                @@collection << CircleNormalTarget.new(x, 0)
+                @@collection << CircleNormalTarget.new(x, 0, normal_score)
             elsif per > 1
-                @@collection << CircleMinusTarget.new(x, 0)
+                @@collection << CircleMinusTarget.new(x, 0, minus_score)
             else
-                @@collection << CircleHighTarget.new(x, 0)
+                @@collection << CircleHighTarget.new(x, 0, high_score)
             end
         end
     end
@@ -71,6 +74,7 @@ class Target < Sprite
         @time = 0
         @dx = dx
         @dy = dy
+        @hitime = 0
 
         #的が止まる座標
         @stop_place_top = rand(500)
