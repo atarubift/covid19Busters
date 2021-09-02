@@ -13,7 +13,7 @@ class DoubleTarget < HighTarget
         #時間経過で消える
         #他の的より消えるのが早い
         @time += 1
-        self.class.collection.delete(self) if @time > 50
+        self.class.collection.delete(self) if @time > 300
         
         if self.vanished?
           if Time.now - @hitime < 0.5
@@ -26,7 +26,9 @@ class DoubleTarget < HighTarget
       if Input.mouse_push?(M_LBUTTON)
           @hitime = Time.now
           self.vanish
-          $score += @score * 2
+          $double_flag = 1
+          $double_time = Time.now
+          puts($double_flag, $double_time)   
       end
   end
 end
