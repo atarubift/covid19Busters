@@ -41,6 +41,7 @@ class Target < Sprite
                     @@collection << MinusTarget.new(x, 0, 0, 10, minus_score)
                 else
                     @@collection << HighTarget.new(x, 0, 0, 15, high_score)
+                    @@collection << DoubleTarget.new(x, 0, 0, 15, high_score)
                 end
             end
         elsif min >= 1  && sec >= 0

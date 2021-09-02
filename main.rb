@@ -7,6 +7,7 @@ require_relative 'targets/circletarget'
 require_relative 'targets/normaltarget'
 require_relative 'targets/hightarget'
 require_relative 'targets/minustarget'
+require_relative 'targets/doubletarget'
 
 Window.width = 800
 Window.height = 600

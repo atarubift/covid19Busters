@@ -78,6 +78,12 @@ class Game
 #           INFO[:born] = Time.now  
 #         end
 
+
+        # if (Time.now - INFO[:born]) >= 2
+        #   HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15)
+        #   DoubleTarget.add(INFO[:min],INFO[:sec],"images/2x_new-modified.png",20)
+        #   INFO[:born] = Time.now  
+        # end
     
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])
