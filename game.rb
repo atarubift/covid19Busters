@@ -69,17 +69,18 @@ class Game
           @timeFlag = 1
         end
         
-        Target.add(INFO[:min],INFO[:sec],"images/virus.png",10, 50) if rand(40) == 0
-        MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10, -50) if rand(40) == 0
+        Target.add(INFO[:min],INFO[:sec]) if rand(50) == 0
+#         Target.add(INFO[:min],INFO[:sec],"images/virus.png",10, 50) if rand(40) == 0
+#         MinusTarget.add(INFO[:min],INFO[:sec],"images/vaccine.png",10, -50) if rand(40) == 0
 
-        if (Time.now - INFO[:born]) >= 2
-          HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15, 100) 
-          INFO[:born] = Time.now  
-        end
+#         if (Time.now - INFO[:born]) >= 2
+#           HighTarget.add(INFO[:min],INFO[:sec],"images/extra_point.png",15, 100) 
+#           INFO[:born] = Time.now  
+#         end
+
     
         Target.collection.each do |target|
           target.update(INFO[:min],INFO[:sec])
-          target.draw
           Sprite.check(@cursor,target)
         end
         
