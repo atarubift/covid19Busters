@@ -5,7 +5,7 @@ class Target < Sprite
         @@collection
     end
 
-    def self.add(min,sec,img,speed)
+    def self.add(min,sec,img,speed, score)
         #縦と横のレーンに的があるかチェック
         check_line_x = true
         check_line_y = true
@@ -27,21 +27,23 @@ class Target < Sprite
 
         #30秒毎に出てくる方向を変える
         if min >= 1 && sec >= 30 && check_line_x
-            @@collection << self.new(x,600,0,-speed,img)
+            @@collection << self.new(x,600,0,-speed,img, score)
         elsif min >= 1  && sec >= 0 && check_line_x
-            @@collection << self.new(x,0,0,speed,img)
+            @@collection << self.new(x,0,0,speed,img, score)
         elsif min >= 0 && min < 1 && sec >= 30 && check_line_y
-            @@collection << self.new(800,y,-speed,0,img)
+            @@collection << self.new(800,y,-speed,0,img, score)
         elsif min >= 0 && min < 1  && sec >= 0 && check_line_y
-            @@collection << self.new(0,y,speed,0,img)
+            @@collection << self.new(0,y,speed,0,img, score)
         end
     end
 
     #初期のx座標、y座標、移動する速さ
-    def initialize(x, y, dx, dy ,img)
+    def initialize(x, y, dx, dy ,img, score)
         self.x = x
         self.y = y
         self.image = Image.load(img)
+        @score = score
+        @font = Font.new(32)
         @time = 0
         @dx = dx
         @dy = dy
@@ -61,13 +63,20 @@ class Target < Sprite
         #時間経過で消える
         @time += 1
         self.class.collection.delete(self) if @time > 200
-    end
 
-    def hit
-        if Input.mouse_push?(M_LBUTTON)
-            self.vanish
-            $score += 50
+        if self.vanished?
+            if Time.now - @hitime < 0.5
+              Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+            end
         end
     end
 
+
+    def hit
+        if Input.mouse_push?(M_LBUTTON)
+            @hitime = Time.now
+            self.vanish
+            $score += @score
+        end
+    end
 end
