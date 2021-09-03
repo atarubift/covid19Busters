@@ -2,10 +2,7 @@ class Cursor < Sprite
     def initialize
         self.image = Image.load("images/shooter.png")
         f = 4000
-        @sound = SoundEffect.new(20, WAVE_TRI) do
-          f = f - 120
-          [f, 15]
-        end
+        @sound = Sound.new("sounds/shoot.wav")
     end
 
     def move       
@@ -14,7 +11,7 @@ class Cursor < Sprite
 
         Window.draw(self.x, self.y, self.image) 
         
-        if Input.mouse_down?(M_LBUTTON) then   
+        if Input.mouse_push?(M_LBUTTON) then   
             @sound.play
         end
     end
