@@ -2,6 +2,7 @@ class DoubleTarget < HighTarget
     def initialize(x, y, dx, dy, score)
         super
         self.image = Image.load("images/2x_new-modified.png")
+        @doubleSound = Sound.new("sounds/double.wav")
     end
 
     def update(min ,sec)
