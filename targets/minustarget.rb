@@ -6,7 +6,8 @@ class MinusTarget < Target
 
   def hit
     if Input.mouse_push?(M_LBUTTON)
-          @hitime = Time.now
+        @minuSound.play
+        @hitime = Time.now
           self.vanish
         $score += @score
     end
@@ -21,6 +22,7 @@ class CircleMinusTarget < CircleTarget
 
   def hit
     if Input.mouse_push?(M_LBUTTON)
+        @minuSound.play
         @hitime = Time.now
         self.vanish
         $score += @score
