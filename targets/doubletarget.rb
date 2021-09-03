@@ -24,6 +24,7 @@ class DoubleTarget < HighTarget
 
     def hit
       if Input.mouse_push?(M_LBUTTON)
+          @doubleSound.play
           @hitime = Time.now
           self.vanish
           $double_flag = 1

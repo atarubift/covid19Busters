@@ -6,6 +6,7 @@ class NormalTarget < Target
 
     def hit
         if Input.mouse_push?(M_LBUTTON)
+            @sound.play
             @hitime = Time.now
             if $double_flag == 1
                 if Time.now - $double_time <= 5
@@ -30,6 +31,7 @@ class CircleNormalTarget < CircleTarget
 
     def hit
         if Input.mouse_push?(M_LBUTTON)
+            @sound.play
             @hitime = Time.now
             if $double_flag == 1
                 if Time.now - $double_time <= 5
