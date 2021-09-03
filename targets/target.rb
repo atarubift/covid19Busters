@@ -81,6 +81,10 @@ class Target < Sprite
         @dx = dx
         @dy = dy
         @hitime = 0
+        @sound = Sound.new("sounds/vanishTarget.wav")
+        @minuSound = Sound.new("sounds/minusVanish.wav")
+        @doubleSound = Sound.new("sounds/double.wav")
+
 
         #的が止まる座標
         @stop_place_top = rand(500)
@@ -113,6 +117,7 @@ class Target < Sprite
     def hit
         if Input.mouse_push?(M_LBUTTON)
           @hitime = Time.now
+          @sound.play
           if $double_flag == 1
               $score += @score*2
           else

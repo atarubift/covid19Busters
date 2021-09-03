@@ -33,16 +33,6 @@ class CircleDoubleTarget < CircleTarget
     self.image = Image.load("images/2x_new-modified.png")
   end
 
-  def hit
-    if Input.mouse_push?(M_LBUTTON)
-      @hitime = Time.now
-      self.vanish
-      $double_flag = 1
-      $double_time = Time.now
-      puts($double_flag, $double_time)   
-    end
-  end
-
   def update(min, sec)
 
     self.x += @dx
@@ -58,5 +48,16 @@ class CircleDoubleTarget < CircleTarget
     #時間経過で消える
     @time += 1
     self.class.collection.delete(self) if @time > 200
+  end 
+   
+  def hit
+    if Input.mouse_push?(M_LBUTTON)
+        @doubleSound.play
+        @hitime = Time.now
+        self.vanish
+        $double_flag = 1
+        $double_time = Time.now
+        puts($double_flag, $double_time)   
+    end
   end
 end
