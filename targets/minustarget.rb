@@ -1,7 +1,8 @@
 class MinusTarget < Target
   def initialize(x, y, dx, dy, score)
     super
-    self.image = Image.load("images/vaccine.png")
+      @minuSound = Sound.new("sounds/minusVanish.wav")
+      self.image = Image.load("images/vaccine.png")
   end
 
   def hit
@@ -16,6 +17,7 @@ class CircleMinusTarget < CircleTarget
   def initialize(x, y, score)
     super
     self.image = Image.load("images/vaccine.png")
+    @minuSound = Sound.new("sounds/minusVanish.wav")
   end
 
   def hit

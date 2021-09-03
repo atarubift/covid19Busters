@@ -81,9 +81,6 @@ class Target < Sprite
         @dx = dx
         @dy = dy
         @hitime = 0
-        @sound = Sound.new("sounds/vanishTarget.wav")
-        @minuSound = Sound.new("sounds/minusVanish.wav")
-        @doubleSound = Sound.new("sounds/double.wav")
 
 
         #的が止まる座標
