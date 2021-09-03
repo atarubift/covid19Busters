@@ -6,8 +6,8 @@ class Cursor < Sprite
     end
 
     def move       
-        self.x = Input.mouse_pos_x
-        self.y = Input.mouse_pos_y 
+        self.x = Input.mouse_pos_x - 25
+        self.y = Input.mouse_pos_y - 20
 
         Window.draw(self.x, self.y, self.image) 
         
