@@ -2,6 +2,7 @@ class HighTarget < Target
     def initialize(x, y, dx, dy, score)
         super
         self.image = Image.load("images/extra_point.png")
+        @sound = Sound.new("sounds/vanishTarget.wav")
     end
 
     def update(min ,sec)
@@ -31,5 +32,6 @@ class CircleHighTarget < CircleTarget
     def initialize(x, y, score)
         super
         self.image = Image.load("images/extra_point.png")
+        @sound = Sound.new("sounds/vanishTarget.wav")
     end
 end
