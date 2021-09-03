@@ -82,6 +82,7 @@ class Target < Sprite
         @dx = dx
         @dy = dy
         @hitime = 0
+        @sound = Sound.new("sounds/vanishTarget.wav")
 
         #的が止まる座標
         @stop_place_top = rand(500)
@@ -102,7 +103,8 @@ class Target < Sprite
 
         if self.vanished?
             if Time.now - @hitime < 0.5
-              Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+            @sound.play
+            Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
             end
         end
     end
@@ -112,7 +114,6 @@ class Target < Sprite
             @hitime = Time.now
             self.vanish           
             $score += @score
-            
         end
     end
 end
