@@ -31,7 +31,11 @@ class CircleTarget < Target
 
         if self.vanished?
             if Time.now - @hitime < 0.5
-              Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+              if $double_flag == 0
+                Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+              else
+                Window.draw_font(375, 10, "#{sprintf("%+d", @score*2)}", @font, color: C_BLACK)
+              end
             end
         end
     end
