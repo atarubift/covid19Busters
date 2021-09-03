@@ -17,27 +17,10 @@ class HighTarget < Target
         
         if self.vanished?
           if Time.now - @hitime < 0.5
-            Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+            Window.draw_font(375, 10, "#{sprintf("%+d", @score*2)}", @font, color: C_BLACK)
           end
       end
     end
-
-    def hit
-      if Input.mouse_push?(M_LBUTTON)
-        @hitime = Time.now
-        if $double_flag == 1
-            if Time.now - $double_time <= 5
-                $score += @score*2
-            else
-                $double_flag = 0
-                $score += @score
-            end
-        else
-            $score += @score
-        end
-        self.vanish
-      end
-  end
 end
 
 class CircleHighTarget < CircleTarget
@@ -45,21 +28,4 @@ class CircleHighTarget < CircleTarget
         super
         self.image = Image.load("images/extra_point.png")
     end
-
-    def hit
-      if Input.mouse_push?(M_LBUTTON)
-          @hitime = Time.now
-          if $double_flag == 1
-              if Time.now - $double_time <= 5
-                  $score += @score*2
-              else
-                  $double_flag = 0
-                  $score += @score
-              end
-          else
-              $score += @score
-          end
-          self.vanish
-      end
-  end
 end

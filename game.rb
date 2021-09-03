@@ -76,6 +76,18 @@ class Game
           target.update(INFO[:min],INFO[:sec])
           Sprite.check(@cursor,target)
         end
+
+        if $double_flag == 1
+          remaining_time = 5.0 - (Time.now - $double_time)
+          Window.draw_font(630, 10, "×2", @font, color: C_RED)
+          Window.draw_font(690, 10, "#{remaining_time.round(1)}", @font, color: C_RED)
+        end
+
+        if $double_flag == 1
+          if Time.now - $double_time > 5
+            $double_flag = 0
+          end
+        end
         
         @cursor.move
         timer(@start)
