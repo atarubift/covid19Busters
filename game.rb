@@ -27,7 +27,7 @@ class Game
 
   def timer(start)
     now = Time.now
-    limit =  60
+    limit =  2 * 60
     diff = now - start
     countdown = (limit - diff).to_i
     INFO[:min] = countdown / 60
