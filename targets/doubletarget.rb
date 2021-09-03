@@ -41,7 +41,7 @@ end
     self.x += @dx
     self.y += 2
 
-    @angle += 3
+    @angle += rand(10)
     rad = @angle * (Math::PI / 180)
 
     self.x = self.x - Math.sin(rad) * @width

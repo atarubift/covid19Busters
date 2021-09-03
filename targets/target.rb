@@ -40,9 +40,9 @@ class Target < Sprite
                 elsif per > 25
                     @@collection << MinusTarget.new(x, 0, 0, 10, minus_score)
                 elsif per > 5
-                    @@collection << HighTarget.new(x, 0, 0, 10, 0)
+                    @@collection << HighTarget.new(x, 0, 0, 10, high_score)
                 else
-                    @@collection << DoubleTarget.new(x, 0, 0, 15, high_score)
+                    @@collection << DoubleTarget.new(x, 0, 0, 15, 0)
                 end
             end
         elsif min >= 1  && sec >= 0
@@ -103,9 +103,9 @@ class Target < Sprite
         if self.vanished?
             if Time.now - @hitime < 0.5
               if $double_flag == 0
-                Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+                Window.draw_font(285, 15, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
               else
-                Window.draw_font(375, 10, "#{sprintf("%+d", @score*2)}", @font, color: C_BLACK)
+                Window.draw_font(285, 15, "#{sprintf("%+d", @score*2)}", @font, color: C_BLACK)
               end
             end
         end

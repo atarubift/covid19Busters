@@ -14,16 +14,18 @@ class HighTarget < Target
         #時間経過で消える
         #他の的より消えるのが早い
         @time += 1
-        self.class.collection.delete(self) if @time > 50
+        self.vanish if @time > 50
         
         if self.vanished?
-            if Time.now - @hitime < 0.5
-              if $double_flag == 0
-                Window.draw_font(375, 10, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
-              else
-                Window.draw_font(375, 10, "#{sprintf("%+d", @score*2)}", @font, color: C_BLACK)
-              end
+          if @hitime == 0
+            self.class.collection.delete(self)
+          elsif Time.now - @hitime < 0.5
+            if $double_flag == 0
+              Window.draw_font(285, 15, "#{sprintf("%+d", @score)}", @font, color: C_BLACK)
+            else
+              Window.draw_font(285, 15, "#{sprintf("%+d", @score*2)}", @font, color: C_BLACK)
             end
+          end
         end
     end
 end
