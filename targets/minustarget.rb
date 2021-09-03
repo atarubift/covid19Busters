@@ -23,7 +23,7 @@ class CircleMinusTarget < CircleTarget
   def hit
     super
     if Input.mouse_push?(M_LBUTTON)
-      @minsound.play
+      @sound.play
     end
   end
 end

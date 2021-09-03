@@ -2,7 +2,7 @@ class DoubleTarget < HighTarget
   def initialize(x, y, dx, dy, score)
       super
       self.image = Image.load("images/2x_new-modified.png")
-      @doubleSound = Sound.new("sounds/double.wav")
+      @sound = Sound.new("sounds/double.wav")
   end
 
   def update(min ,sec)
@@ -19,7 +19,7 @@ class DoubleTarget < HighTarget
 
   def hit
     if Input.mouse_push?(M_LBUTTON)
-      @doubleSound.play
+      @sound.play
       @hitime = Time.now
       self.vanish
       $double_flag = 1
@@ -33,7 +33,8 @@ class CircleDoubleTarget < CircleTarget
   def initialize(x, y, score)
     super
     self.image = Image.load("images/2x_new-modified.png")
-  end
+    @sound = Sound.new("sounds/double.wav")
+end
 
   def update(min, sec)
 
@@ -54,7 +55,7 @@ class CircleDoubleTarget < CircleTarget
    
   def hit
     if Input.mouse_push?(M_LBUTTON)
-        @doubleSound.play
+        @sound.play
         @hitime = Time.now
         self.vanish
         $double_flag = 1
